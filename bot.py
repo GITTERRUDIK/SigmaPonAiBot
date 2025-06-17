@@ -12,17 +12,12 @@ llm = OpenAI(
     base_url="https://openrouter.ai/api/v1",
     temperature=0.4,
     system_prompt=(
-        "Ты — личный помощник Саши. Пиши кратко, спокойно, говори на 'ты'. "
-        "Если тебя просят сгенерировать код — пиши чисто, понятно, без мусора. "
+        "Ты — личный помощник Шмоти (aka pakkva, smilejany). Пиши кратко, спокойно, понятным языком, говори на 'ты'. "
+        "Если тебя просят сгенерировать код — пиши чисто, понятно, без мусора и лишних комментариев"
         "Ты умеешь писать на Python, HTML, JS и LuaU."
+        "Не сюсюкайся, не говори как ты выражаешь сочуствие. В основном ты только нацелен на генерацию кода, обьяснение непонятных тем. И иногда небольшие разговоры"
     )
 )
-
-# === Загрузка заметок пользователя ===
-documents = SimpleDirectoryReader("my_notes").load_data()
-service_context = ServiceContext.from_defaults(llm=llm)
-index = VectorStoreIndex.from_documents(documents, service_context=service_context)
-query_engine = index.as_query_engine()
 
 # === Ответ бота на входящее сообщение ===
 async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
